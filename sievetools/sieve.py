@@ -9,10 +9,11 @@ def sieve_slow(nmax):
     Function to compute prime numbers. 
     
     Arguments: 
-    - nmax: integer. Upper bound for prime search.
+        - nmax: integer. Upper bound for prime search.
 
     Ourputs:
-    - all_primes: list. List with all the prime numbers slower than nmax
+        - all_primes: list. List with all the prime numbers slower than nmax
+    
     """
 
     all_primes = []
@@ -37,6 +38,16 @@ def sieve_slow(nmax):
 
 
 def sieve_fast(nmax):
+    """
+    Function to compute prime numbers in a more efficient way than sieve_slow()
+    
+    Arguments: 
+        - nmax: integer. Upper bound for prime search.
+
+    Ourputs:
+        - all_primes: list. List with all the prime numbers slower than nmax   
+    
+    """
     
     all_primes = []
 
@@ -75,3 +86,43 @@ def sieve_fast(nmax):
         all_primes = primes_head + primes_tail_lst
 
     return all_primes
+
+
+
+def get_primes(nmax, method):
+    """
+    Function to run different algorithms for prime numbers
+    """
+    
+    if method == "slow":
+        return sieve_slow(nmax)
+    elif method == "fast":
+        return sieve_fast(nmax)
+    else:
+        raise NotImplementedError()
+        
+        
+        
+def proportion_primes(nmin, nmax, step=100):
+    """
+    Function to compute proportion of prime numbers
+    
+    Arguments:
+        - nmin: integer. Minimun number
+        - nmax: integer. Maximum number
+        - step: integer. Stepsize for the prime search.
+    
+    Outputs:
+        - all_n: list. All integers used for the search.
+        - all_proportions: list. Result of proportions of primes per each number in all_n
+        
+    """
+    
+    all_n = np.arange(nmin, nmax, step).astype(int)
+    all_proportions = []
+    
+    for n in all_n:
+        all_primes = get_primes(n, method="fast")
+        all_proportions.append(len(all_primes) / n)
+        
+    return all_n, all_proportions
