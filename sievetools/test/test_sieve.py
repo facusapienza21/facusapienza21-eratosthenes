@@ -1,5 +1,3 @@
-import os
-
 from sievetools import *
 
 def test_primes_15():
